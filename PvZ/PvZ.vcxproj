@@ -154,7 +154,7 @@
     <ClCompile Include="Peashooter.cpp" />
     <ClCompile Include="PeaProjectile.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="PvZ.cpp" />
+    <ClCompile Include="PlantDefense.cpp" />
     <ClCompile Include="RaZombie.cpp" />
     <ClCompile Include="SnowPeaProjectile.cpp" />
     <ClCompile Include="SnowPeashooter.cpp" />

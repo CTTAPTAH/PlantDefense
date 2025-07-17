@@ -18,7 +18,6 @@
 using namespace std;
 using namespace sf;
 
-
 struct Dt
 {
 	Clock clock;

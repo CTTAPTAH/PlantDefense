@@ -78,7 +78,7 @@ void Zombie::update(double dt, sf::RenderWindow& win) {
 	if (!getIsDead()) {
 		FindVictimN2(dt);
 		move(dt);
-		tryRegisterOnLine(); // Добавил Н
+		tryRegisterOnLine();
 		draw(win);
 		animation.update(dt);
 		ZombieIsFrosen(dt);

@@ -46,7 +46,7 @@ void Car::draw(sf::RenderWindow& win)
 void Car::move(double dt)
 {
 	rect.left += dt * velocity_x;
-	animation.setPosition(rect.left, rect.top); // Н добавил
+	animation.setPosition(rect.left, rect.top);
 }
 
 void Car::CollisionWithZombie(double dt)

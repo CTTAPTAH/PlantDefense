@@ -5,7 +5,7 @@
 class Car:public GameObject
 {
 private:
-	sf::Color color; // Ќ добавил, потому что больше не наследуем
+	sf::Color color;
 	double velocity_x = 400;
 	bool touch = false;
 

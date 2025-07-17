@@ -63,8 +63,8 @@ public:
 	static constexpr int WAVE_BAR_FILL_OFFSET_Y = 13;
 	//------------------------------------
 	// спавнер
-	static constexpr int SPAWN_OFFSET_MAX = 15;
-	static constexpr int SPAWN_OFFSET_MIN = 0;
+	static constexpr int SPAWN_OFFSET_MAX = 50;
+	static constexpr int SPAWN_OFFSET_MIN = 15;
 
 	// Карта
 	// Количество линий на карте

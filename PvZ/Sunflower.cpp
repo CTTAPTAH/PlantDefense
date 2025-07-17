@@ -17,17 +17,10 @@ Sunflower::Sunflower(sf::Vector2f pos, int index_line_)
 		TypeEntity::SUNFLOWER
 	),
 	time_to_reaper_sun(Config::TIME_TO_REAPEAR_SUN)
-{ // Добавил Н
+{ 
 }
 Sunflower::Sunflower()
 {
-	//rect.left = 0; rect.top = 0; rect.height = 50; rect.width = 50;
-	////color.r = 0; color.g = 255; color.b = 0; color.a = 255;
-	//hp = 3;
-	//time_to_reaper_sun = 10;
-	//idx_line = -1;
-	//type = TypeObject::PLANT;
-	//animation.setTexture(LoadTexture::getBorn().getTexture("sunflower")); // Добавил Н
 }
 Sunflower::~Sunflower() {}
 

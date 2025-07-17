@@ -31,6 +31,7 @@ private:
 
 	RaZombie* owner_zombie = nullptr;
 
+	bool move_sky = false;
 	
 public:
 	Sun(float pos_x, float pos_y, int index_line_);
@@ -49,5 +50,9 @@ public:
 	void checkTimer();
 	bool getOnGround();
 	bool isTouched() const;
+
+	void move_from_sky(double dt);
+	void setMoveSky(bool value);
+	void fallFromSky(float start_x, float start_y);
 };
 

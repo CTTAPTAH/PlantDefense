@@ -18,7 +18,7 @@ DiscoZombie::DiscoZombie(int idx_line)
 
 void DiscoZombie::move(double dt)
 {
-	if (!victim) { // добавил условие
+	if (!victim) {
 		rect.left -= velocity_x * dt;
 		animation.setPosition(rect.left, rect.top);
 	}

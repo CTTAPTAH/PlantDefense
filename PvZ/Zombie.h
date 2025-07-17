@@ -90,7 +90,7 @@ protected:
     GameObject* victim;
     sf::Sound chewingSound;
 
-    bool hasEnteredScreen = false; // добавил Н
+    bool hasEnteredScreen = false;
 public:
     Zombie();
     Zombie(int _index_line, int frame_w, int frame_h);

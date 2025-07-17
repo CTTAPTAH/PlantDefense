@@ -2,6 +2,8 @@
 #include "config.h"
 #include <SFML/Graphics.hpp>
 
+int Randomizer(int start, int end);
+
 class Message;
 
 class Map

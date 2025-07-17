@@ -1,6 +1,9 @@
 #include "Sun.h"
 #include "RaZombie.h"
 
+int Randomizer(int start, int end) {
+	return rand() % (end - start + 1) + start;
+}
 int Sun::collected_sun = 0;
 
 sf::Vector2f right_up_angle{ 150,-40 };
@@ -82,7 +85,10 @@ void Sun::update(double dt, sf::RenderWindow& win)
 {
 	draw(win);
 	if (!touch && !SunTrappedByZombie) {
-		move_from_sunflower(dt);
+		if (move_sky)
+			move_from_sky(dt);
+		else
+			move_from_sunflower(dt);
 	}
 	if (SunTrappedByZombie) {
 		checkTimer();
@@ -118,16 +124,16 @@ void Sun::TextureCollisionWithCursor(sf::RenderWindow& win, double dt) {
 	}
 
 	if (rect.intersects(cursor_rect)) {
-		if (!touch) { // добавил Н
-			Player& player = Manager::getBorn()->getPlayer(); // добавил Н
-			player.setMoney(player.getMoney() + Config::SUN_PRICE); // добавил Н
+		if (!touch) {
+			Player& player = Manager::getBorn()->getPlayer();
+			player.setMoney(player.getMoney() + Config::SUN_PRICE);
 		}
 		touch = true;
 		current_motion = MOVE_SUN;
 	}
 
-	// Исправи if Н. Было: rect.left >= MGR->getWinWidth() || rect.top <= 4
-	if (rect.left >= MGR->getWinWidth() || rect.top < 4) {
+	// Исправи if. Было: rect.left >= MGR->getWinWidth() || rect.top <= 4
+	if ((rect.left >= MGR->getWinWidth() || rect.top < 4) and touch) {
 
 		collected_sun += 1;
 		//std::cout << collected_sun << std::endl;
@@ -198,7 +204,6 @@ void Sun::MoveToZombie(double dt)
 	}
 }
 
-
 void Sun::checkTimer()
 {
 	if (zombie_timer < 0.5) {
@@ -222,5 +227,37 @@ bool Sun::getOnGround()
 bool Sun::isTouched() const {
 	return touch;
 }
+void Sun::move_from_sky(double dt) {
+	const double gravity = 100.0; // Можно настроить
 
+	velocity_y = gravity * dt;
+	rect.top += velocity_y;
 
+	// Установим точку приземления, как в случае с подсолнухом
+	if (rect.top >= ground_pos_y) {
+		rect.top = ground_pos_y;
+		velocity_y = 0;
+		current_motion = IDLE_SUN;
+		onGround = true;
+	}
+}
+void Sun::setMoveSky(bool value)
+{
+	move_sky = value;
+}
+void Sun::fallFromSky(float start_x, float start_y) {
+	rect.left = start_x;
+	rect.top = start_y;
+	start_pos_y = start_y;
+
+	Manager* mng = Manager::getBorn();
+	Map map = mng->getMap();
+	sf::FloatRect rect_map = map.getRect();
+	ground_pos_y = start_y + Randomizer(rect_map.top,
+		rect_map.top + rect_map.height - Config::SUN_FRAME_HEIGHT);
+	
+	move_sky = true;
+	velocity_y = 0;
+	onGround = false;
+	touch = false;
+}

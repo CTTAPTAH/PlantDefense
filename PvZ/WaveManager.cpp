@@ -238,22 +238,21 @@ void WaveManager::spawn()
 	int idx;
 
 	// если зомби больше, чем линий, то смещаем их относительно прощлых зомби
-	int offset_on_line[5] = { 0, 0, 0, 0, 0 };
+	int win_width = mng->getWinWidth();
+	int offset_on_line[5] = { win_width, win_width, win_width, win_width, win_width };
 
 	GameObject* object = nullptr;
 	
 	int line;
 	for (const auto& zm : waves[cur_wave].zombies) {
 		// выбираем линию
-		if (size > 0) {
-			idx = Rand(0, size - 1);
-			line = free_lines[idx];
-			std::swap(free_lines[idx], free_lines[size - 1]);
-			--size;
-		}
-		else {
+		if (size <= 0)
 			size = 5;
-		}
+
+		idx = Rand(0, size - 1);
+		line = free_lines[idx];
+		std::swap(free_lines[idx], free_lines[size - 1]);
+		--size;
 
 		// создаём выбранного зомби
 		if (zm == TypeEntity::ZOMBIE) {
@@ -285,12 +284,12 @@ void WaveManager::spawn()
 			// смещение от начальной позиции при спавне,
 			// чтобы появлялись не в одну линию
 			sf::FloatRect rect_zm = object->getRect();
-			rect_zm.left += Rand(Config::SPAWN_OFFSET_MIN,
+			rect_zm.left = Rand(Config::SPAWN_OFFSET_MIN,
 				Config::SPAWN_OFFSET_MAX) + offset_on_line[line];
 			object->setRect(rect_zm);
 
 			// запоминаем позицию спавна, чтобы не было "зомби в зомби"
-			offset_on_line[line] = (rect_zm.left + rect_zm.width) / 2; // с учётом ширины
+			offset_on_line[line] = rect_zm.left;
 			
 			// отправка сообщения
 			Message msg;
@@ -301,7 +300,5 @@ void WaveManager::spawn()
 		}
 	}
 	mng->getUI().updateWaves(double(cur_wave + 1) / double(waves.size()));
-	std::cout << "Заспавнили волну: " << cur_wave + 1 << std::endl;
+	//std::cout << "Заспавнили волну: " << cur_wave + 1 << std::endl;
 }
-
-// геттеры, сеттеры

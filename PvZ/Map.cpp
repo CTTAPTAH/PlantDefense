@@ -126,7 +126,7 @@ void Map::receiveMsg(Message* msg)
 		player.resetCooldown(msg->add_plant.idx);
 	}
 }
-// появление солнышек
+// появление солнышек с неба
 void Map::spawnSkySun(double dt)
 {
 	reload_spawn_sun -= dt;
@@ -139,6 +139,9 @@ void Map::spawnSkySun(double dt)
 		Sun* sun = new Sun(randomik(rect.left, rect.left + rect.width),
 			100,
 			randomik(0, amount_field_h));
+		int pos_x = randomik(rect.left, rect.left + rect.width - Config::SUNFLOWER_FRAME_WIDTH);
+		int pos_y = 0 - Config::SUN_FRAME_HEIGHT;
+		sun->fallFromSky(pos_x, pos_y);
 		Message msg;
 		msg.type = TypeMsg::CREATE;
 		msg.create.new_object = sun;
